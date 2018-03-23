@@ -23,13 +23,6 @@ export function checkStatus() {
   };
 }
 
-export const SEE_INFO = 'SEE_INFO';
-export function seeInfo() {
-  return {
-    type: SEE_INFO
-  };
-}
-
 // Reducers
 const initialState = {
   guesses: [],
@@ -40,8 +33,6 @@ const initialState = {
 
 const hotColdReducer = (state=initialState, action) => {
   if(action.type === MAKE_GUESS) {
-    console.log(action.guess);
-
     const guess = parseInt(action.guess, 10);
     if(isNaN(guess)) {
       return Object.assign({}, state, {
@@ -64,13 +55,27 @@ const hotColdReducer = (state=initialState, action) => {
       feedback = 'You got it!';
     }
 
-
-    const newState = Object.assign({}, state, {
+    return Object.assign({}, state, {
       feedback,
       guesses: [...state.guesses, guess]
     });
-    console.log(newState);
-    return newState;
+  } else if(action.type === NEW_GAME) {
+    return Object.assign({}, initialState, {
+      correctAnswer: Math.round(Math.random() * 100) + 1
+    });
+  } else if(action.type === CHECK_STATUS) {
+    const { guesses, feedback } = state;
+    const pluralize = guesses.length !== 1;
+
+    let auralStatus = `Here's the status of the game right now: ${feedback} You've made ${guesses.length} ${pluralize ? 'guesses' : 'guess'}.`;
+
+    if (guesses.length > 0) {
+      auralStatus += ` ${pluralize ? 'In order of most- to least-recent, they are' : 'It was'}: ${guesses.reverse().join(', ')}`;
+    }
+
+    return Object.assign({}, state, {
+      auralStatus
+    });
   }
 
   return state;
