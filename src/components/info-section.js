@@ -1,8 +1,9 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
 import './info-section.css';
 
-export default function InfoSection(props) {
+export function InfoSection(props) {
   return (
     <section id="what" tabIndex="-1">
       <h2>What do I do?</h2>
@@ -16,3 +17,5 @@ export default function InfoSection(props) {
     </section>
   );
 }
+
+export default connect()(InfoSection);

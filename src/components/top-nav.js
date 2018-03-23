@@ -1,14 +1,15 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
 import './top-nav.css';
 
-export default function TopNav(props) {
+export function TopNav(props) {
   return (
     <nav>
       <ul className="clearfix">
         <li>
-          <a 
-            href="#what" 
+          <a
+            href="#what"
             className="what"
             aria-label="How to play"
           >
@@ -28,7 +29,7 @@ export default function TopNav(props) {
         <li>
           <a
             href="#get-status"
-            /* the `visuallyhidden` class hides an element 
+            /* the `visuallyhidden` class hides an element
             while leaving it available to screen reader users  */
             className="visuallyhidden focusable status-link"
             onClick={() => props.onGenerateAuralUpdate()}
@@ -40,3 +41,5 @@ export default function TopNav(props) {
     </nav>
   );
 }
+
+export default connect()(TopNav);

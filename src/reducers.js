@@ -1,4 +1,4 @@
-import * as actions from '../actions';
+import * as actions from './actions';
 
 const initialState = {
   guesses: [],
@@ -8,5 +8,5 @@ const initialState = {
 };
 
 export const hotColdReducer = (state=initialState, action) => {
-  
+  return state;
 };
